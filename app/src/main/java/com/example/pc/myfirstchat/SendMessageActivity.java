@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
@@ -26,8 +27,7 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
     private EditText message;
 
     private Button b_send = null;
-
-    SendMessageTask sendMessageTask = new SendMessageTask(this);
+    private ProgressBar progressBar;
 
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
     private static final String TAG = SendMessageActivity.class.getSimpleName();
@@ -35,7 +35,7 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-
+    SendMessageTask sendMessageTask = new SendMessageTask(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
 
         b_send = (Button) findViewById(R.id.sendmsg);
         message = (EditText) findViewById(R.id.msg);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
 
         b_send.setOnClickListener(new View.OnClickListener() {
@@ -53,18 +54,22 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
 
                 String messagestr = message.getText().toString();
 
-                // Cancel previous task if it is still running
-                if ((sendMessageTask != null) && sendMessageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
-                    sendMessageTask.cancel(true);
-                }
-
                 //We get username and Password in Shared Preference
                 SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
                 String Uname = userDetails.getString("username", "");
                 String pass = userDetails.getString("password", "");
 
+
+                // Cancel previous task if it is still running
+                if ((sendMessageTask != null) && sendMessageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                    sendMessageTask.cancel(true);
+                }
+
+
+
                 // Launch Login Task
-                sendMessageTask.execute(messagestr,Uname,pass);
+                progressBar.setVisibility(View.VISIBLE);
+                sendMessageTask.execute(messagestr, Uname, pass);
             }
         });
     }
@@ -72,11 +77,15 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
 
     @Override
     public void succesProcess() {
-
+// Here, hide progress bar
+        progressBar.setVisibility(View.GONE);
+        makeText(SendMessageActivity.this, R.string.message_success, LENGTH_LONG).show();
     }
 
     @Override
     public void failureProcess() {
+        progressBar.setVisibility(View.GONE);
+        makeText(SendMessageActivity.this, R.string.message_error, LENGTH_LONG).show();
 
     }
 
