@@ -1,7 +1,6 @@
 package com.example.pc.myfirstchat;
 
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -102,29 +101,30 @@ public class RegisterActivity extends Activity implements ConnectionListenner {
         edit.putString("password", password.getText().toString().trim());
         edit.commit();
 
-
         actionLogHome();
 
         // Everything good!
         makeText(RegisterActivity.this, R.string.register_success, LENGTH_LONG).show();
-
         finish();
-
     }
 
+    @Override
+    public void failureProcess() {
 
+        // Here, hide progress bar
+        progressBar.setVisibility(View.GONE);
+        makeText(RegisterActivity.this, R.string.register_error, LENGTH_LONG).show();
+        username.setText("");
+        password.setText("");
+    }
+
+    @Override
+    public void unauthorizedProcess() {
+
+    }
 
     private void actionLogHome (){
         Intent intent= new Intent(this, HomeActivity.class);
         startActivity(intent);
-    }
-
-
-
-
-    @Override
-    public void failureProcess() {
-        makeText(RegisterActivity.this, R.string.register_error, LENGTH_LONG).show();
-        return;
     }
 }

@@ -3,13 +3,17 @@ package com.example.pc.myfirstchat;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.apache.http.HttpStatus;
 
 import java.io.IOException;
+
+import okio.BufferedSink;
 
 import static android.widget.Toast.makeText;
 
@@ -38,6 +42,8 @@ public class LoginTask extends AsyncTask<String, Void, Integer> {
         //HttpClient client = new DefaultHttpClient();
         OkHttpClient client = new OkHttpClient();
 
+
+
         // Webservice URL
         String url = new StringBuilder(API_BASE_URL + "/connect/")
                 .append(username)
@@ -56,14 +62,15 @@ public class LoginTask extends AsyncTask<String, Void, Integer> {
         try {
 
             Response response = client.newCall(request).execute();
-            //String status = response.body().string();
+
+
             int responseCode = response.code();
             return responseCode;
 
         } catch (IOException e) {
             Log.w(TAG, "Exception occured while logging in: " + e.getMessage());
 
-            return 0;
+            return null;
         }
 
     }

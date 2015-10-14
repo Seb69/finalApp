@@ -3,6 +3,12 @@ package com.example.pc.myfirstchat;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -11,6 +17,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 
+import okio.BufferedSink;
+
 import static android.widget.Toast.makeText;
 
 /**
@@ -18,6 +26,8 @@ import static android.widget.Toast.makeText;
  */
 public class RegisterTask extends AsyncTask<String, Void, Integer> {
 
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
 
     private static final String TAG ="RegisterTask";
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
@@ -34,8 +44,10 @@ public class RegisterTask extends AsyncTask<String, Void, Integer> {
         String login = params[0];
         String password = params[1];
 
+
+
         // Here, call the login webservice
-        HttpClient client = new DefaultHttpClient();
+        OkHttpClient client = new OkHttpClient();
 
         // Webservice URL
         String url = new StringBuilder(API_BASE_URL + "/register/")
@@ -44,20 +56,31 @@ public class RegisterTask extends AsyncTask<String, Void, Integer> {
                 .append(password)
                 .toString();
 
+        RequestBody body = RequestBody.create(JSON, "");
 
 
-        HttpPost loginRequest = new HttpPost(url);
+        // Request
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
 
 
-        HttpResponse response = null;
+
         try {
-            response = client.execute(loginRequest);
+
+            Response response = client.newCall(request).execute();
+
+            return response.code();
+
+
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
 
-        return response.getStatusLine().getStatusCode();
+
 
     }
 

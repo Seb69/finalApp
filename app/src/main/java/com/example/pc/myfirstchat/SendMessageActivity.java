@@ -27,13 +27,14 @@ public class SendMessageActivity extends Activity {
 
     private Button b_send = null;
 
-    private SendMessageTask sendMessageTask;
+    SendMessageTask sendMessageTask = new SendMessageTask();
 
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
+
 
 
     @Override
@@ -56,9 +57,15 @@ public class SendMessageActivity extends Activity {
                 if ((sendMessageTask != null) && sendMessageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
                     sendMessageTask.cancel(true);
                 }
+
+                //We get username and Password in Shared Preference
+                SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+                String Uname = userDetails.getString("username", "");
+                String pass = userDetails.getString("password", "");
+
                 // Launch Login Task
                 sendMessageTask = new SendMessageTask();
-                sendMessageTask.execute(messagestr);
+                sendMessageTask.execute(messagestr,Uname,pass);
             }
         });
     }

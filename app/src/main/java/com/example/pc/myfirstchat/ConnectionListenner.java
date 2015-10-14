@@ -7,5 +7,6 @@ public interface ConnectionListenner {
 
     void succesProcess();
     void failureProcess();
+    void unauthorizedProcess();
 
 }
