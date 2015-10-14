@@ -3,6 +3,7 @@ package com.example.pc.myfirstchat;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -65,11 +66,16 @@ public class ListeMessagesActivity extends Activity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //We get username and Password in Shared Preference
+                SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+                String uname = userDetails.getString("username", "");
+                String pass = userDetails.getString("password", "");
+
                 messageTask = new MessageTask();
-                messageTask.execute();
+                messageTask.execute(uname, pass);
             }
         });
-        Object testMesg;
         mAdapter = new Message_Adapteur(messages, this);
         listMsg.setAdapter(mAdapter);
     }
@@ -116,7 +122,8 @@ public class ListeMessagesActivity extends Activity {
                 Gson gson = new Gson();
                 Type type = new TypeToken<ArrayList<Message>>() {
                 }.getType();
-                List<Message> messages = gson.fromJson(jsonMessages, type);
+                messages = gson.fromJson(jsonMessages, type);
+                return true;
 
             } catch (IOException e) {
                 Log.w(TAG, "Exception occured while logging in: " + e.getMessage());
@@ -134,6 +141,8 @@ public class ListeMessagesActivity extends Activity {
                 makeText(ListeMessagesActivity.this, R.string.refresh_error, LENGTH_LONG).show();
                 return;
             }
+
+            mAdapter.addAll(messages);
             makeText(ListeMessagesActivity.this, R.string.refresh_success, LENGTH_LONG).show();
 
 

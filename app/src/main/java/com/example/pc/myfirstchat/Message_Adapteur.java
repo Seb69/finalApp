@@ -43,7 +43,7 @@ public class Message_Adapteur extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater= LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.single_message,viewGroup);
+        view = layoutInflater.inflate(R.layout.single_message,viewGroup, false);
 
         TextView login_textview = (TextView) view.findViewById(R.id.login);
         TextView message_textview = (TextView) view.findViewById(R.id.msg);
@@ -53,6 +53,11 @@ public class Message_Adapteur extends BaseAdapter{
         message_textview.setText(message.getMessage());
 
         return view;
+    }
+
+    public void addAll(List<Message> messages){
+        this.messages = messages;
+        this.notifyDataSetChanged();
     }
 
     public class ViewHolder {

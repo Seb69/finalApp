@@ -22,15 +22,17 @@
     <ListView
         android:id="@+id/listmsg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/refresh"
         android:layout_centerHorizontal="true"
-        android:clickable="false" />
+        android:clickable="false"
+        android:stackFromBottom="true"
+        android:focusable="true"
+        android:layout_margin="@dimen/activity_horizontal_margin" />
     <ProgressBar
         android:id="@+id/progress_bar_list_msg"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:visibility="gone" />
-
 </RelativeLayout>
