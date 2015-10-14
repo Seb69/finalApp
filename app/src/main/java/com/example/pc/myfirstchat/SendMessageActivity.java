@@ -21,7 +21,7 @@ import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
 
-public class SendMessageActivity extends Activity {
+public class SendMessageActivity extends Activity implements ConnectionListenner {
 
     private EditText message;
 
@@ -70,5 +70,19 @@ public class SendMessageActivity extends Activity {
     }
 
 
+    @Override
+    public void succesProcess() {
+
+    }
+
+    @Override
+    public void failureProcess() {
+
+    }
+
+    @Override
+    public void unauthorizedProcess() {
+
+    }
 }
 
