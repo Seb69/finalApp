@@ -127,4 +127,9 @@ public class LoginActivity extends Activity implements ConnectionListenner {
         makeText(LoginActivity.this, R.string.login_error, LENGTH_LONG).show();
         return;
     }
+
+    @Override
+    public void unauthorizedProcess() {
+
+    }
 }

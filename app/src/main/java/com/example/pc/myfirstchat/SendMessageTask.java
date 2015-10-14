@@ -26,11 +26,13 @@ public class SendMessageTask extends AsyncTask<String, Void, Integer> {
             = MediaType.parse("application/json; charset=utf-8");
 
 
-    public ConnectionListenner connectionListenner;
+
+    private ConnectionListenner connectionListenner;
 
     public SendMessageTask(ConnectionListenner connectionListenner) {
         this.connectionListenner = connectionListenner;
     }
+
 
     @Override
     protected Integer doInBackground(String... argz) {

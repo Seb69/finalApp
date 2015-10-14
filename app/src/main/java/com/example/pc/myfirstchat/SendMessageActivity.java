@@ -27,10 +27,10 @@ public class SendMessageActivity extends Activity {
 
     private Button b_send = null;
 
-    SendMessageTask sendMessageTask = new SendMessageTask();
+    SendMessageTask sendMessageTask = new SendMessageTask(this);
 
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
-    private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final String TAG = SendMessageActivity.class.getSimpleName();
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
@@ -64,93 +64,11 @@ public class SendMessageActivity extends Activity {
                 String pass = userDetails.getString("password", "");
 
                 // Launch Login Task
-                sendMessageTask = new SendMessageTask();
                 sendMessageTask.execute(messagestr,Uname,pass);
             }
         });
     }
 
-    private class SendMessageTask extends AsyncTask<String, Void, Boolean> {
-
-
-        @Override
-        protected Boolean doInBackground(String... argz) {
-            String mymessage= argz[0];
-
-            //We get username and Password in Shared Preference
-            SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-            String Uname = userDetails.getString("username", "");
-            String pass = userDetails.getString("password", "");
-
-
-
-            // Webservice URL
-            String url = new StringBuilder(API_BASE_URL)
-                    .append("messages/")
-                    .append(Uname)
-                    .append("/")
-                    .append(pass)
-                    .toString();
-            // Request
-
-
-            //Json creation
-            Gson gson = new Gson();
-            //Objet creation
-            MessageToSend messageToSend = new MessageToSend();
-            messageToSend.setLogin(Uname);
-            messageToSend.setMessage(mymessage);
-            messageToSend.setUuid();
-            String monMsg = gson.toJson(messageToSend);
-
-
-            OkHttpClient client = new OkHttpClient();
-
-            RequestBody body = RequestBody.create(JSON, monMsg);
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-                //return response.body().string();
-                return response.isSuccessful();
-                //return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-
-
-            return false;
-
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-
-
-
-            // Success
-            if (success) {
-                makeText(SendMessageActivity.this, R.string.message_success, LENGTH_LONG).show();
-                message.setText("");
-                return;
-            }
-            makeText(SendMessageActivity.this, R.string.message_error, LENGTH_LONG).show();
-            return;
-
-        }
-
-        @Override protected void onPreExecute() {
-
-            // Reset username text to empty
-            // message.setText("");
-            // Here, show progress bar
-
-        }
-    }
 
 }
 
