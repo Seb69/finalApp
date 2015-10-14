@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyFirstChat</string>
+    <string name="register">Register</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">Home</string>
+    <string name="FName">First Name</string>
+    <string name="title_activity_liste_messages">ListeMessages</string>
+    <string name="title_activity_send_message">SendMessage</string>
+    <string name="login_error">ERROR LOGIN</string>
+    <string name="login_success">LOGIN SUCCESS</string>
+    <string name="title_activity_register">Register Page</string>
+    <string name="register_error">REGISTER ERROR</string>
+    <string name="message_error">MESSAGE NOT SENT</string>
+    <string name="message_success">MESSAGE SENT</string>
+    <string name="register_success">REGISTER SUCCESS</string>
+    <string name="refresh_error">CAN\'T LOAD MESSAGES</string>
+    <string name="refresh_success">Done loading messages</string>
+</resources>
