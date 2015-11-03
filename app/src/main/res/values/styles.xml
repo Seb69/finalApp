@@ -1,13 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <color name="colorPrimary">#3F51B5</color>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <color name="colorPrimaryDark">#1A237E</color>
+
     </style>
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">?android:attr/listDivider</item>
-    </style>
+
 
 </resources>
