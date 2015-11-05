@@ -69,6 +69,7 @@ public class LoginActivity extends Activity implements ConnectionListenner {
                 // Cancel if username  or password field are empty
                 if (usernameStr.toString().equals("") || passwordStr.toString().equals("")) {
                     asyncTask.cancel(true);
+                    makeText(LoginActivity.this, R.string.Field_missing, LENGTH_LONG).show();
                     restartActivity();
                 }
                 // Launch Login Task

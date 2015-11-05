@@ -27,4 +27,5 @@
     <string name="logout">Log Out</string>
     <string name="xriteamsg">message ?</string>
     <string name="unauthorized">UNAUTHORIZED</string>
+    <string name="Field_missing">Field missing</string>
 </resources>
