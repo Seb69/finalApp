@@ -20,7 +20,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="message ?"
+        android:hint="@string/xriteamsg"
         android:id="@+id/msg"
         android:background="#ffffff"
         android:padding="@dimen/activity_horizontal_margin"

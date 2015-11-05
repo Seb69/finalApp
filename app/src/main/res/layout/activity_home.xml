@@ -10,7 +10,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Liste messages"
+        android:text="@string/listemsg"
         android:id="@+id/listmsg"
         android:layout_marginTop="120dp"
         android:background="#ffffff"
@@ -21,11 +21,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Envoyer messages"
+        android:text="@string/sendmsg"
         android:id="@+id/sendmsg"
         android:background="#ffffff"
         android:padding="@dimen/activity_vertical_margin"
         android:layout_marginTop="102dp"
         android:layout_below="@+id/listmsg"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:id="@+id/logout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#04002b6f" />
 </RelativeLayout>

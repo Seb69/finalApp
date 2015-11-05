@@ -16,4 +16,14 @@
     <string name="register_success">REGISTER SUCCESS</string>
     <string name="refresh_error">CAN\'T LOAD MESSAGES</string>
     <string name="refresh_success">Done loading messages</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_log_out">LogOutActivity</string>
+    <string name="validate">Valider</string>
+    <string name="empty">Vider</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="listemsg">Liste messages</string>
+    <string name="sendmsg">Envoyer messages</string>
+    <string name="logout">Log Out</string>
+    <string name="xriteamsg">message ?</string>
 </resources>

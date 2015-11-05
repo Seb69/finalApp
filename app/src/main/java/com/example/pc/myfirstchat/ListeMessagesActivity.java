@@ -39,10 +39,9 @@ import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
 
-public class ListeMessagesActivity extends Activity {
+public class ListeMessagesActivity extends Activity implements AsyncResponse, ConnectionListenner{
 
     private final String TAG = LoginActivity.class.getSimpleName();
-    private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
 
     Message_Adapteur mAdapter;
     //Messages that we will retrieve
@@ -51,7 +50,12 @@ public class ListeMessagesActivity extends Activity {
     Button refresh = null;
     private ListView listMsg;
     private ProgressBar progressBar;
-    private MessageTask messageTask;
+
+
+    ListeMessageTask asyncTask =new ListeMessageTask(this);
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class ListeMessagesActivity extends Activity {
         listMsg = (ListView) findViewById(R.id.listmsg);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_list_msg);
 
+        asyncTask.delegate= this;
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,102 +77,37 @@ public class ListeMessagesActivity extends Activity {
                 String uname = userDetails.getString("username", "");
                 String pass = userDetails.getString("password", "");
 
-                messageTask = new MessageTask();
-                messageTask.execute(uname, pass);
+
+                asyncTask.execute(uname, pass);
             }
         });
         mAdapter = new Message_Adapteur(messages, this);
         listMsg.setAdapter(mAdapter);
     }
 
-    private class MessageTask extends AsyncTask<String, Void, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            // Here, show progress bar
-            progressBar.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void processFinish(List<Message> output) {
+        mAdapter.addAll(output);
 
-        @Override
-        protected Boolean doInBackground(String... params) {
-
-            String username = params[0];
-            String password = params[1];
-
-            // Here, call the login webservice
-            OkHttpClient client = new OkHttpClient();
-
-            // Webservice URL
-            String url = new StringBuilder(API_BASE_URL + "/messages/")
-                    .append(username)
-                    .append("/")
-                    .append(password)
-                    .toString();
-
-            try {
-                // FIXME to be removed. Simulates heavy network workload
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            // Request
-            try {
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-
-                Response response = client.newCall(request).execute();
-                String jsonMessages = response.body().string();
-
-                Gson gson = new Gson();
-                Type type = new TypeToken<ArrayList<Message>>() {
-                }.getType();
-                messages = gson.fromJson(jsonMessages, type);
-                return true;
-
-            } catch (IOException e) {
-                Log.w(TAG, "Exception occured while logging in: " + e.getMessage());
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            // Here, hide progress bar and proceed to login if OK.
-            progressBar.setVisibility(View.GONE);
-
-            // Wrong login entered
-            if (!success) {
-                makeText(ListeMessagesActivity.this, R.string.refresh_error, LENGTH_LONG).show();
-                return;
-            }
-
-            mAdapter.addAll(messages);
-            makeText(ListeMessagesActivity.this, R.string.refresh_success, LENGTH_LONG).show();
-
-
-        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_liste_messages, menu);
-        return true;
+    public void succesProcess() {
+
+        makeText(ListeMessagesActivity.this, R.string.refresh_success, LENGTH_LONG).show();
+}
+
+    @Override
+    public void failureProcess() {
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void unauthorizedProcess() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }

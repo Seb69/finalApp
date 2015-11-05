@@ -17,10 +17,6 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class LoginActivity extends Activity implements ConnectionListenner {
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
-    private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
-    public static final String EXTRA_LOGIN = "ext_login";
-
 
     LoginTask asyncTask =new LoginTask(this);
 
@@ -32,11 +28,8 @@ public class LoginActivity extends Activity implements ConnectionListenner {
     Button b_valider = null;
     Button b_register = null;
 
+
     private ProgressBar progressBar;
-
-    public final static String USERNAME = null;
-    public final static String PASSWORD = null;
-
 
 
     @Override
@@ -85,6 +78,8 @@ public class LoginActivity extends Activity implements ConnectionListenner {
 
             }
         });
+
+
     }
 
     private void actionLogregister() {
@@ -92,8 +87,6 @@ public class LoginActivity extends Activity implements ConnectionListenner {
         startActivity(intent);
 
     }
-
-
 
     private void actionLogHomeActivity(){
         Intent intent= new Intent(LoginActivity.this, HomeActivity.class);

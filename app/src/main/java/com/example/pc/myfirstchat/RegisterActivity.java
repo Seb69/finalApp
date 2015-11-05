@@ -1,6 +1,5 @@
 package com.example.pc.myfirstchat;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-
-import java.lang.Boolean;
 import java.lang.Override;import java.lang.String;
 
 import static android.widget.Toast.makeText;
@@ -22,9 +19,7 @@ import static android.widget.Toast.LENGTH_LONG;
 public class RegisterActivity extends Activity implements ConnectionListenner {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
-    private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
-    public static final String EXTRA_LOGIN = "ext_register";
-    public static final String EXTRA_PASSWORD = "ext_password";
+
 
     RegisterTask registerTask =new RegisterTask(this);
 

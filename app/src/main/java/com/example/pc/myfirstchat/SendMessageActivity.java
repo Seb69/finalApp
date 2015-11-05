@@ -29,8 +29,6 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
     private Button b_send = null;
     private ProgressBar progressBar;
 
-    private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
-    private static final String TAG = SendMessageActivity.class.getSimpleName();
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
@@ -64,8 +62,6 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
                 if ((sendMessageTask != null) && sendMessageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
                     sendMessageTask.cancel(true);
                 }
-
-
 
                 // Launch Login Task
                 progressBar.setVisibility(View.VISIBLE);

@@ -29,7 +29,7 @@ public class RegisterTask extends AsyncTask<String, Void, Integer> {
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    private static final String TAG ="RegisterTask";
+    private static final String TAG = RegisterTask.class.getSimpleName();
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
 
     private ConnectionListenner connectionListenner;
@@ -70,7 +70,6 @@ public class RegisterTask extends AsyncTask<String, Void, Integer> {
         try {
 
             Response response = client.newCall(request).execute();
-
             return response.code();
 
 

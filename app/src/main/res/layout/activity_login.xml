@@ -1,3 +1,5 @@
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -7,10 +9,12 @@
     android:id="@+id/back"
     android:background="#90fff3">
 
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vider"
+        android:text="@string/empty"
         android:id="@+id/clear"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/password" />
@@ -18,7 +22,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valider"
+        android:text="@string/validate"
         android:id="@+id/validate"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/password" />
@@ -46,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Name"
+        android:hint="@string/name"
         android:ems="10"
         android:id="@+id/username"
         android:layout_marginTop="78dp"
@@ -59,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="@string/password"
         android:ems="10"
         android:id="@+id/password"
         android:background="#ffffff"

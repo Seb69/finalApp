@@ -23,7 +23,7 @@ import static android.widget.Toast.makeText;
 public class LoginTask extends AsyncTask<String, Void, Integer> {
 
     private static final String API_BASE_URL = "http://training.loicortola.com/chat-rest/1.0/";
-    private static final String TAG = "LoginTask";
+    private static final String TAG = LoginTask.class.getSimpleName();
 
 
     private ConnectionListenner connectionListenner;
@@ -62,7 +62,6 @@ public class LoginTask extends AsyncTask<String, Void, Integer> {
         try {
 
             Response response = client.newCall(request).execute();
-
 
             int responseCode = response.code();
             return responseCode;
