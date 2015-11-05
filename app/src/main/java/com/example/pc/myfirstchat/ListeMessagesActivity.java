@@ -56,11 +56,10 @@ public class ListeMessagesActivity extends Activity implements AsyncResponse, Co
     ListeMessageTask asyncTask =new ListeMessageTask(this);
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_liste_messages);
 
         refresh = (Button) findViewById(R.id.refresh);
