@@ -65,6 +65,7 @@ public class HomeActivity extends Activity {
     private void actionLogOut(){
         Intent intent= new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

@@ -98,7 +98,7 @@ public class LoginActivity extends Activity implements ConnectionListenner {
     private void actionLogHomeActivity(){
         Intent intent= new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
-        //finish();
+        finish();
     }
 
 
