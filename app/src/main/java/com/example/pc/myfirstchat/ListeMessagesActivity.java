@@ -3,6 +3,7 @@ package com.example.pc.myfirstchat;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -68,6 +69,9 @@ public class ListeMessagesActivity extends Activity implements AsyncResponse, Co
 
         asyncTask.delegate= this;
 
+        mAdapter = new Message_Adapteur(messages, this);
+        listMsg.setAdapter(mAdapter);
+
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,12 +81,11 @@ public class ListeMessagesActivity extends Activity implements AsyncResponse, Co
                 String uname = userDetails.getString("username", "");
                 String pass = userDetails.getString("password", "");
 
-
+                progressBar.setVisibility(View.VISIBLE);
                 asyncTask.execute(uname, pass);
             }
         });
-        mAdapter = new Message_Adapteur(messages, this);
-        listMsg.setAdapter(mAdapter);
+
     }
 
     @Override
@@ -95,18 +98,34 @@ public class ListeMessagesActivity extends Activity implements AsyncResponse, Co
     public void succesProcess() {
 
         makeText(ListeMessagesActivity.this, R.string.refresh_success, LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
 }
 
     @Override
     public void failureProcess() {
-
+        makeText(ListeMessagesActivity.this, R.string.message_error, LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
+        restartActivity();
     }
 
     @Override
     public void unauthorizedProcess() {
 
+        makeText(ListeMessagesActivity.this, R.string.unauthorized, LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
+        restartActivity();
+
     }
 
+    public void restartActivity(){
+
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+        finish();
+    }
 
 
 

@@ -33,7 +33,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:layout_below="@id/FName"
         android:hint="Password"
         android:id="@+id/RegisterPass"

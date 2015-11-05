@@ -26,4 +26,5 @@
     <string name="sendmsg">Envoyer messages</string>
     <string name="logout">Log Out</string>
     <string name="xriteamsg">message ?</string>
+    <string name="unauthorized">UNAUTHORIZED</string>
 </resources>

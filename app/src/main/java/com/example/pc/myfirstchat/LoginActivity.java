@@ -110,7 +110,7 @@ public class LoginActivity extends Activity implements ConnectionListenner {
 
         // Everything good!
         makeText(LoginActivity.this, R.string.login_success, LENGTH_LONG).show();
-
+        progressBar.setVisibility(View.INVISIBLE);
         //finish();
 
     }
@@ -118,11 +118,24 @@ public class LoginActivity extends Activity implements ConnectionListenner {
     @Override
     public void failureProcess() {
         makeText(LoginActivity.this, R.string.login_error, LENGTH_LONG).show();
-        return;
+        progressBar.setVisibility(View.INVISIBLE);
+        restartActivity();
     }
 
     @Override
     public void unauthorizedProcess() {
+        makeText(LoginActivity.this, R.string.unauthorized, LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
+        restartActivity();
 
+    }
+
+    public void restartActivity(){
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }

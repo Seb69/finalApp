@@ -1,6 +1,7 @@
 package com.example.pc.myfirstchat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,15 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ProgressBar;
-
-import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -66,6 +60,7 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
                 // Launch Login Task
                 progressBar.setVisibility(View.VISIBLE);
                 sendMessageTask.execute(messagestr, Uname, pass);
+                message.setText("");
             }
         });
     }
@@ -76,17 +71,33 @@ public class SendMessageActivity extends Activity implements ConnectionListenner
 // Here, hide progress bar
         progressBar.setVisibility(View.GONE);
         makeText(SendMessageActivity.this, R.string.message_success, LENGTH_LONG).show();
+        restartActivity();
+
     }
 
     @Override
     public void failureProcess() {
         progressBar.setVisibility(View.GONE);
         makeText(SendMessageActivity.this, R.string.message_error, LENGTH_LONG).show();
+        restartActivity();
 
     }
 
     @Override
     public void unauthorizedProcess() {
+        progressBar.setVisibility(View.GONE);
+        makeText(SendMessageActivity.this, R.string.unauthorized, LENGTH_LONG).show();
+        restartActivity();
+
+    }
+
+    public void restartActivity(){
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
 
     }
 }
