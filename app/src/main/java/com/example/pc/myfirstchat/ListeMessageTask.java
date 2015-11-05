@@ -1,0 +1,7 @@
+package com.example.pc.myfirstchat;
+
+/**
+ * Created by ANDRE on 03/11/15.
+ */
+public class ListeMessageTask {
+}
