@@ -64,7 +64,7 @@ public class LoginActivity extends Activity implements ConnectionListenner {
                 // Cancel previous task if it is still running
                 if (asyncTask != null && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
                     asyncTask.cancel(true);
-                    restartActivity();;
+                    restartActivity();
                 }
                 // Cancel if username  or password field are empty
                 if (usernameStr.toString().equals("") || passwordStr.toString().equals("")) {
@@ -114,6 +114,7 @@ public class LoginActivity extends Activity implements ConnectionListenner {
         edit.commit();
 
         actionLogHomeActivity();
+        finish();
 
         // Everything good!
         makeText(LoginActivity.this, R.string.login_success, LENGTH_LONG).show();
