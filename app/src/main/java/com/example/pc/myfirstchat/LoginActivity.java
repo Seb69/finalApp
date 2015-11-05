@@ -65,6 +65,10 @@ public class LoginActivity extends Activity implements ConnectionListenner {
                 if (asyncTask != null && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
                     asyncTask.cancel(true);
                 }
+                // Cancel if username  or password field are empty
+                if (usernameStr.toString().equals("") && passwordStr.toString().equals("")) {
+                    asyncTask.cancel(true);
+                }
                 // Launch Login Task
                 progressBar.setVisibility(View.VISIBLE);
                 asyncTask.execute(usernameStr, passwordStr);
